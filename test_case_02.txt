@@ -1,0 +1,4 @@
+Cheeseburger,1,9.9
+Soda,1,2.5
+Chips,1,1.0
+

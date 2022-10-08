@@ -58,7 +58,7 @@ def get_menu_choice():
 
 def load_data():
     try:
-        file_object = open("test_case_02.txt", "r")
+        file_object = open("data.csv", "r")
         for line in file_object:
             fields = line.split(",")
             item_name = fields[0].strip()
@@ -98,7 +98,7 @@ def display_saved_data():
 
 def save_data():
     try:
-        file_object = open("test_case_02.txt", "w")
+        file_object = open("data.csv", "w")
         i = 0
         while i < len(item_names):
             file_object.write(item_names[i] + "," + str(item_servings[i]) + "," + str(item_prices[i]) + "\n")

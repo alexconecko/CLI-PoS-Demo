@@ -1,16 +1,18 @@
 import sys
 from backend import *
 
-def run_point_of_sale():
-    load_data()
-    choice = get_menu_choice()
-    while choice != "x":
-        sys.stdout.write("\n")
-        if choice == "a":
-            add_item_via_menu()
-        elif choice == "d":
-            display_saved_data()
-        choice = get_menu_choice()
-    save_data()
+class point_of_sale_user_interface():
+    def point_of_sale_UI(self):
+        backend_operations.load_data(self)
+        choice = user_input_handling.get_menu_choice(self)
+        while choice != "x":
+            sys.stdout.write("\n")
+            if choice == "a":
+                backend_operations.add_item_via_menu(self)
+            elif choice == "d":
+                backend_operations.display_saved_data(self)
+            choice = user_input_handling.get_menu_choice(self)
+        backend_operations.save_data(self)
 
-run_point_of_sale()
+run = point_of_sale_user_interface()
+run.point_of_sale_UI()

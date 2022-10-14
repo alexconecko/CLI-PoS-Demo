@@ -57,6 +57,19 @@ class user_input_handling():
             choice = user_input_handling.get_str(self, (choice + " was an invalid choice! Re-enter: ")).lower()
         
         return choice
+    
+    def add_item_via_menu(self):
+        sys.stdout.write("-----------\n")
+        sys.stdout.write("Add an item\n")
+        sys.stdout.write("-----------\n")
+
+        item_name = user_input_handling.get_str(self, "Enter item name: ")
+        sys.stdout.write("\n")
+        item_serving = user_input_handling.get_int(self, "Enter item servings amount: ")
+        sys.stdout.write("\n")
+        item_price = user_input_handling.get_positive_float(self, "Enter item price: $")
+        sys.stdout.write("\n")
+        backend_operations.add_item(item_name, item_serving, item_price)
 
 class backend_operations():
     def load_data(self):
@@ -77,19 +90,6 @@ class backend_operations():
         food_item.item_names.append(item_name)
         food_item.item_servings.append(item_serving)
         food_item.item_prices.append(item_price)
-
-    def add_item_via_menu(self):
-        sys.stdout.write("-----------\n")
-        sys.stdout.write("Add an item\n")
-        sys.stdout.write("-----------\n")
-
-        item_name = user_input_handling.get_str(self, "Enter item name: ")
-        sys.stdout.write("\n")
-        item_serving = user_input_handling.get_int(self, "Enter item servings amount: ")
-        sys.stdout.write("\n")
-        item_price = user_input_handling.get_positive_float(self, "Enter item price: $")
-        sys.stdout.write("\n")
-        backend_operations.add_item(item_name, item_serving, item_price)
         
     def display_saved_data(self):
         i = 0

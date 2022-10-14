@@ -8,7 +8,7 @@ class point_of_sale_user_interface():
         while choice != "x":
             sys.stdout.write("\n")
             if choice == "a":
-                backend_operations.add_item_via_menu(self)
+                user_input_handling.add_item_via_menu(self)
             elif choice == "d":
                 backend_operations.display_saved_data(self)
             choice = user_input_handling.get_menu_choice(self)

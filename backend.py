@@ -21,7 +21,7 @@ class user_input_handling():
         value = None
         while value == None:
             try:
-                value = int(self.get_str(prompt))
+                value = int(user_input_handling.get_str(self, prompt))
             except:
                 prompt = "That wasn't right. Re-enter: "
         return value
@@ -30,15 +30,15 @@ class user_input_handling():
         value = None
         while value == None:
             try:
-                value = float(self.get_str(prompt))
+                value = float(user_input_handling.get_str(self, prompt))
             except:
                 prompt = "That wasn't right. Re-enter: "
         return value
 
     def get_positive_float(self, prompt):
-        value = self.get_float(prompt)
+        value = user_input_handling.get_float(self, prompt)
         while value < 0:
-            value = self.get_float("Input must be positive. Re-enter: ")
+            value = user_input_handling.get_float(self, "Input must be positive. Re-enter: ")
         return value
 
     def get_menu_choice(self):
@@ -69,7 +69,7 @@ class user_input_handling():
         sys.stdout.write("\n")
         item_price = user_input_handling.get_positive_float(self, "Enter item price: $")
         sys.stdout.write("\n")
-        backend_operations.add_item(item_name, item_serving, item_price)
+        backend_operations.add_item(self, item_name, item_serving, item_price)
 
 class backend_operations():
     def load_data(self):

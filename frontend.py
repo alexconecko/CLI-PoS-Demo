@@ -11,6 +11,8 @@ class point_of_sale_user_interface():
                 user_input_handling.add_item_via_menu(self)
             elif choice == "d":
                 backend_operations.display_saved_data(self)
+            elif choice == "~":
+                admin_panel.magic_methods(self)
             choice = user_input_handling.get_menu_choice(self)
         backend_operations.save_data(self)
 

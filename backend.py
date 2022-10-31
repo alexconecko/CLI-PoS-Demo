@@ -1,9 +1,17 @@
 import sys
 
+class admin_panel():
+    def magic_methods(self):
+        i = 0
+        while i < len(backend_operations.foods_listed_by_name):
+            sys.stdout.write(backend_operations.foods_listed_by_name[i].__str__() + "\n" + backend_operations.foods_listed_by_name[i].__repr__() + "\n")
+            i += 1
+
+
 class food_item():
-    item_names = []
-    item_servings = []
-    item_prices = []
+    item_name = ""
+    item_servings = 0
+    item_price = 0.0
 
 class user_input_handling():
     def get_str(self, prompt):
@@ -47,6 +55,7 @@ class user_input_handling():
         menu += "======================\n"
         menu += "[A]dd an item\n"
         menu += "[D]isplay saved data\n"
+        menu += "[~]Admin Panel\n"
         menu += "E[x]it\n"
         
         sys.stdout.write(menu)
@@ -72,6 +81,8 @@ class user_input_handling():
         backend_operations.add_item(item_name, item_serving, item_price)
 
 class backend_operations():
+    foods_listed_by_name = []
+    
     def load_data(self):
         try:
             file_object = open("data.csv", "r")
@@ -87,25 +98,28 @@ class backend_operations():
             sys.stdout.write("Data file could not be read properly. Check csv structure.\n")
 
     @staticmethod
-    def add_item(item_name, item_serving, item_price):
-        food_item.item_names.append(item_name)
-        food_item.item_servings.append(item_serving)
-        food_item.item_prices.append(item_price)
+    def add_item(item_name, item_servings, item_price):
+        food = food_item()
+        food.item_name = item_name
+        food.item_servings = item_servings
+        food.item_price = item_price
+        backend_operations.foods_listed_by_name.append(food)
+        
         
     def display_saved_data(self):
         i = 0
-        for item in food_item.item_names:
-            sys.stdout.write(food_item.item_names[i] + " ")
-            sys.stdout.write(str(food_item.item_servings[i]) + " ")
-            sys.stdout.write(str(food_item.item_prices[i]) + "\n")
+        for item in backend_operations.foods_listed_by_name:
+            sys.stdout.write(backend_operations.foods_listed_by_name[i].item_name + " ")
+            sys.stdout.write(str(backend_operations.foods_listed_by_name[i].item_servings) + " ")
+            sys.stdout.write(str(backend_operations.foods_listed_by_name[i].item_price) + "\n")
             i += 1
 
     def save_data(self):
         try:
             file_object = open("data.csv", "w")
             i = 0
-            while i < len(food_item.item_names):
-                file_object.write(food_item.item_names[i] + "," + str(food_item.item_servings[i]) + "," + str(food_item.item_prices[i]) + "\n")
+            while i < len(backend_operations.foods_listed_by_name):
+                file_object.write(backend_operations.foods_listed_by_name[i].item_name + "," + str(backend_operations.foods_listed_by_name[i].item_servings) + "," + str(backend_operations.foods_listed_by_name[i].item_price) + "\n")
                 i += 1
             file_object.close()
         except OSError:

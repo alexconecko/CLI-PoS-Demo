@@ -69,7 +69,7 @@ class user_input_handling():
         sys.stdout.write("\n")
         item_price = user_input_handling.get_positive_float(self, "Enter item price: $")
         sys.stdout.write("\n")
-        backend_operations.add_item(self, item_name, item_serving, item_price)
+        backend_operations.add_item(item_name, item_serving, item_price)
 
 class backend_operations():
     def load_data(self):
@@ -80,13 +80,14 @@ class backend_operations():
                 item_name = fields[0].strip()
                 item_serving = fields[1].strip()
                 item_price = fields[2].strip()
-                backend_operations.add_item(self, item_name, item_serving, item_price)
+                backend_operations.add_item(item_name, item_serving, item_price)
         except OSError:
             sys.stdout.write("Error loading data file.\n")
         except IndexError:
             sys.stdout.write("Data file could not be read properly. Check csv structure.\n")
 
-    def add_item(self, item_name, item_serving, item_price):
+    @staticmethod
+    def add_item(item_name, item_serving, item_price):
         food_item.item_names.append(item_name)
         food_item.item_servings.append(item_serving)
         food_item.item_prices.append(item_price)
@@ -109,3 +110,4 @@ class backend_operations():
             file_object.close()
         except OSError:
             sys.stdout.write("Could not save data to file.")
+            

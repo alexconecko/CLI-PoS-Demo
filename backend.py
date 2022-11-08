@@ -9,9 +9,49 @@ class admin_panel():
 
 
 class food_item():
-    item_name = ""
-    item_servings = 0
-    item_price = 0.0
+    #double underscores are denoted before the member name in order to keep the data private
+    __item_name = ""
+    __item_servings = 0
+    __item_price = 0.0
+    
+    #constructor ensures that objects initialise with values for these members
+    def __init__(self, item_name, item_servings, item_price):
+        self.__item_name = item_name
+        self.__item_servings = item_servings
+        self.__item_price = item_price
+    
+    #property tag is used for our getter methods, using this tag we can call the methods without the use of () at 
+    #the end providing the illusion of an actual attribute/property.    
+    @property
+    def item_name(self):
+        return self.__item_name
+    
+    @property
+    def item_servings(self):
+        return self.__item_servings
+    
+    @property
+    def item_price(self):
+        return self.__item_price
+    
+    #Just as an accessor/getter method allows the retrieval of a property of an object, 
+    # a mutator/setter method allows the modification of a property, by creating a setter
+    #method for each property above we fix attribute errors
+    @item_name.setter
+    def item_name(self, value):
+        if value != 0:
+            self.__item_name = value
+            
+    @item_servings.setter
+    def item_servings(self, value):
+        if value != 0:
+            self.__item_servings = value
+            
+    @item_price.setter
+    def item_price(self, value):
+        if value != 0:
+            self.__item_price = value
+                   
 
 class user_input_handling():
     def get_str(self, prompt):
@@ -99,7 +139,7 @@ class backend_operations():
 
     @staticmethod
     def add_item(item_name, item_servings, item_price):
-        food = food_item()
+        food = food_item(item_name, item_servings, item_price)
         food.item_name = item_name
         food.item_servings = item_servings
         food.item_price = item_price

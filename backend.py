@@ -34,23 +34,31 @@ class food_item():
     def item_price(self):
         return self.__item_price
     
+    #----------------------------RAISE ERROR IMPLEMENTATIONS-------------------------------
     #Just as an accessor/getter method allows the retrieval of a property of an object, 
     # a mutator/setter method allows the modification of a property, by creating a setter
     #method for each property above we fix attribute errors
     @item_name.setter
     def item_name(self, value):
+        #if statement used to validate that the value is not an empty string
         if value != 0:
             self.__item_name = value
+        else:
+            raise ValueError("item name cannot be empty.")
             
     @item_servings.setter
     def item_servings(self, value):
         if value != 0:
             self.__item_servings = value
+        else:
+            raise ValueError("item servings cannot be empty.")
             
     @item_price.setter
     def item_price(self, value):
         if value != 0:
             self.__item_price = value
+        else:
+            raise ValueError("item price cannot be empty.")
                    
 
 class user_input_handling():
@@ -123,6 +131,7 @@ class user_input_handling():
 class backend_operations():
     foods_listed_by_name = []
     
+    #--------------RAISE ERROR IMPLEMENTATION-------------------------
     def load_data(self):
         try:
             file_object = open("data.csv", "r")
@@ -132,10 +141,8 @@ class backend_operations():
                 item_serving = fields[1].strip()
                 item_price = fields[2].strip()
                 backend_operations.add_item(item_name, item_serving, item_price)
-        except OSError:
-            sys.stdout.write("Error loading data file.\n")
-        except IndexError:
-            sys.stdout.write("Data file could not be read properly. Check csv structure.\n")
+        except:
+            raise OSError("Error loading data file.\n")
 
     @staticmethod
     def add_item(item_name, item_servings, item_price):
@@ -153,7 +160,7 @@ class backend_operations():
             sys.stdout.write(str(backend_operations.foods_listed_by_name[i].item_servings) + " ")
             sys.stdout.write(str(backend_operations.foods_listed_by_name[i].item_price) + "\n")
             i += 1
-
+    #---------------RAISE ERROR IMPLEMENTATION---------------------
     def save_data(self):
         try:
             file_object = open("data.csv", "w")
@@ -162,6 +169,6 @@ class backend_operations():
                 file_object.write(backend_operations.foods_listed_by_name[i].item_name + "," + str(backend_operations.foods_listed_by_name[i].item_servings) + "," + str(backend_operations.foods_listed_by_name[i].item_price) + "\n")
                 i += 1
             file_object.close()
-        except OSError:
-            sys.stdout.write("Could not save data to file.")
+        except:
+            raise OSError("Could not save data to file.")
             
